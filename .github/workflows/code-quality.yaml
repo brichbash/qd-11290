@@ -1,0 +1,29 @@
+name: Qodana
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: windows-latest
+    steps:
+      -   uses: actions/checkout@v4
+          with:
+            ref: ${{ github.event.pull_request.head.sha }}
+            fetch-depth: 0
+
+      -   name: Setup .NET
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: 9.x
+
+      -   name: Restore
+          run: dotnet restore
+
+      -   name: 'Qodana Scan'
+          uses: JetBrains/qodana-action@v2024.3
+          with:
+            pr-mode: true
+            args: --ide,QDNET
+          env:
+            QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}

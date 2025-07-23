@@ -19,6 +19,7 @@ steps:
   - task: QodanaScan@2025
     inputs:
       uploadResult: true
+      useNightly: true
+      args: --ide,QDNET-EAP
     env:
       QODANA_TOKEN: $(QODANA_TOKEN)
-      useNightly: true

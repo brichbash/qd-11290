@@ -6,7 +6,7 @@ trigger:
   - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 steps:
   - task: Cache@2  # Not required, but Qodana will open projects with cache faster.
